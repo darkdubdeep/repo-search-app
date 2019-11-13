@@ -1,15 +1,5 @@
 <template>
-  <div>
-    <input
-      type="text"
-      name="gh-username"
-      placeholder="Search for a GitHub username..."
-      v-model="username"
-      @keydown.13="search"
-      :class="{ 'has-error': error }"
-    />
-    <span class="loading" v-if="loading">Searching GitHub for "{{ username }}"...</span>
-  </div>
+  <div>detail</div>
 </template>
 
 <script>

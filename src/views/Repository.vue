@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <ContributionsGraph />
+    {{ $route.params.name }}
   </div>
 </template>
 
@@ -11,7 +12,8 @@ export default {
   name: "home",
   components: {
     ContributionsGraph
-  }
+  },
+  mounted() {}
 };
 </script>
 
