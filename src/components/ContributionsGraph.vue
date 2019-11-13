@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>REPO LIST</h1>
     <input
       type="text"
       name="gh-username"
@@ -15,10 +14,11 @@
 
 <script>
 import axios from "axios";
+
 export default {
-  name: "RepoSearchList",
+  name: "ContributionsGraph",
   props: {
-    msg: String
+    data: Array
   },
   data: () => ({
     username: "",
