@@ -10,6 +10,11 @@
       :class="{ 'has-error': error }"
     />
     <span class="loading" v-if="loading">Searching GitHub for "{{ username }}"...</span>
+    <ul v-if="results">
+      <li v-for="item in results" :key="item.id">
+        <router-link :to="{ path: `repository/${item.name}`}">{{ item.name }}</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -41,6 +46,7 @@ export default {
             console.log(response.data);
 
             this.results = response.data;
+            console.log(this.results);
             this.error = "";
 
             this.loading = false;
