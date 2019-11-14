@@ -41,12 +41,11 @@ export default {
       if (this.username) {
         this.loading = true;
         axios
-          .get("https://api.github.com/users/" + this.username + "/repos")
+          .get(`https://api.github.com/users/${this.username}/repos`)
           .then(response => {
             console.log(response.data);
 
             this.results = response.data;
-            console.log(this.results);
             this.error = "";
 
             this.loading = false;

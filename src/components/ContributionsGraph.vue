@@ -1,5 +1,8 @@
 <template>
-  <div>detail</div>
+  <div>
+    {{ name }}
+    {{ newsletterPopup }}
+  </div>
 </template>
 
 <script>
@@ -8,25 +11,23 @@ import axios from "axios";
 export default {
   name: "ContributionsGraph",
   props: {
+    name: String,
+    newsletterPopup: String,
     data: Array
   },
   data: () => ({
-    username: "",
-    results: "",
     error: "",
     loading: false
   }),
-  watch: {
-    username: function(val) {
-      this.error = "";
-    }
+  mounted() {
+    console.log(this.$route);
   },
   methods: {
     search: function() {
       if (this.username) {
         this.loading = true;
         axios
-          .get("https://api.github.com/users/" + this.username + "/repos")
+          .get(`https://api.github.com/repos/${this.username}/${name}/`)
           .then(response => {
             console.log(response.data);
 
