@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <ContributionsGraph />
-    {{ $route.params.name }}
   </div>
 </template>
 
@@ -9,7 +8,7 @@
 import ContributionsGraph from "@/components/ContributionsGraph.vue";
 
 export default {
-  name: "home",
+  name: "Repository",
   components: {
     ContributionsGraph
   },
