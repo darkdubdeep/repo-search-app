@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>REPOSITORY LIST</h1>
+    <h2 class="loading" v-if="loading">Searching</h2>
     <input
       type="text"
       name="gh-username"
@@ -8,8 +9,7 @@
       v-model="username"
       @keyup="search"
     />
-    <h2 class="loading" v-if="loading">Searching</h2>
-    <ul v-if="!loading && repoData">
+    <ul v-if="!error && !loading">
       <li v-for="item in repoData" :key="item.id">
         <router-link :to="{ path: `repository/${item.name}` }">{{ item.name }}</router-link>
       </li>
