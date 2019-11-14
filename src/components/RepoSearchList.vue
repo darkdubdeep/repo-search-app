@@ -11,25 +11,24 @@
     <h2 class="loading" v-if="loading">Searching</h2>
     <ul v-if="results">
       <li v-for="item in results" :key="item.id">
-        <router-link :to="{ path: `repository/${item.name}` }">
-          {{ item.name }}
-        </router-link>
+        <router-link :to="{ path: `repository/${item.name}` }">{{ item.name }}</router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  name: 'RepoSearchList',
+  name: "RepoSearchList",
   props: {
     msg: String
   },
   data: () => ({
-    username: '',
-    error: '',
-    loading: false
+    username: "",
+    error: "",
+    loading: false,
+    timeOut: null
   }),
   computed: {
     results: function() {
@@ -38,17 +37,23 @@ export default {
   },
   watch: {
     username: function(val) {
-      this.error = '';
+      this.error = "";
     }
   },
   methods: {
     search: function() {
       if (this.username) {
-        console.log(this.username)
-        this.$store.dispatch('loadData', this.username);
-        this.$store.commit('setUser', this.username);
+        console.log(this.username);
+        if (this.timeOut) {
+          clearTimeout(this.timeOut);
+        }
+        this.timeOut = setTimeout(() => {
+          console.log("typed");
+          this.$store.dispatch("loadData", this.username);
+          this.$store.commit("setUser", this.username);
+        }, 500);
       } else {
-        this.error = '';
+        this.error = "";
       }
     }
   }
