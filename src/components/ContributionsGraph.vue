@@ -29,7 +29,6 @@ export default {
   }),
   computed: {
     countributionsData: function() {
-      console.log(this.$store.state.contributionsData);
       return {
         columns: this.columns,
         rows: this.$store.state.contributionsData
@@ -38,7 +37,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch('loadContributions', this.$route.params.name);
-    console.log();
   }
 };
 </script>
