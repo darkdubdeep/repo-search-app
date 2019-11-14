@@ -8,14 +8,19 @@ import axios from 'axios';
 const store = new Vuex.Store({
   state: {
     username: '',
-    repoData: []
+    repoData: [],
+    contributionsData: []
   },
   mutations: {
     setUser(state, payload) {
       state.username = payload;
     },
-    setData(state, payload) {
+    setRepoData(state, payload) {
       state.repoData = payload;
+    },
+    setContributionsData(state, payload) {
+      state.contributionsData = payload;
+      console.log(state.contributionsData, 'store');
     }
   },
   actions: {
@@ -23,8 +28,17 @@ const store = new Vuex.Store({
       return axios
         .get(`https://api.github.com/users/${payload}/repos`)
         .then(response => {
-          console.log(response.data);
-          context.commit('setData', response.data);
+          context.commit('setRepoData', response.data);
+        })
+        .catch(error => {});
+    },
+    loadContributions(context, payload) {
+      return axios
+        .get(
+          `https://api.github.com/repos/${context.state.username}/${payload}/contributors`
+        )
+        .then(response => {
+          context.commit('setContributionsData', response.data);
         })
         .catch(error => {});
     }

@@ -1,58 +1,44 @@
 <template>
   <div>
-    {{ name }}
-    {{ username }}
+    <ve-histogram
+      :data="countributionsData"
+      :settings="chartSettings"
+    ></ve-histogram>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-
+import { VeHistogram } from 'v-charts';
 export default {
   name: 'ContributionsGraph',
+  components: {
+    VeHistogram
+  },
   props: {
-    name: String,
-    newsletterPopup: String,
-    data: Array
+    name: String
   },
   data: () => ({
     error: '',
-    loading: false
+    loading: false,
+    columns: ['contributions'],
+    chartSettings: {
+      metrics: ['contributions'],
+      dimension: ['login']
+    }
   }),
   computed: {
-    username: function() {
-      console.log(this.$store.state.username);
-      return this.$store.state.username;
+    countributionsData: function() {
+      console.log(this.$store.state.contributionsData);
+      return {
+        columns: this.columns,
+        rows: this.$store.state.contributionsData
+      };
     }
   },
-  mounted() {},
-  methods: {
-    search: function() {
-      if (this.username) {
-        this.loading = true;
-        axios
-          .get(`https://api.github.com/repos/${this.username}/${name}/`)
-          .then(response => {
-            console.log(response.data);
-
-            this.results = response.data;
-            this.error = '';
-
-            this.loading = false;
-          })
-          .catch(error => {
-            this.results = '';
-            this.error = error;
-
-            this.loading = false;
-          });
-      } else {
-        this.results = '';
-        this.error = '';
-
-        this.loading = false;
-      }
-    }
+  mounted() {
+    this.$store.dispatch('loadContributions', this.$route.params.name);
+    console.log();
   }
 };
 </script>

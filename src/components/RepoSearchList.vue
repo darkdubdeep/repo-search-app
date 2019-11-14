@@ -7,16 +7,13 @@
       placeholder="Search for a GitHub username..."
       v-model="username"
       @keydown.13="search"
-      :class="{ 'has-error': error }"
     />
-    <span class="loading" v-if="loading"
-      >Searching GitHub for "{{ username }}"...</span
-    >
+    <h2 class="loading" v-if="loading">Searching</h2>
     <ul v-if="results">
       <li v-for="item in results" :key="item.id">
-        <router-link :to="{ path: `repository/${item.name}` }">{{
-          item.name
-        }}</router-link>
+        <router-link :to="{ path: `repository/${item.name}` }">
+          {{ item.name }}
+        </router-link>
       </li>
     </ul>
   </div>
@@ -43,9 +40,6 @@ export default {
     username: function(val) {
       this.error = '';
     }
-  },
-  mounted() {
-    console.log('store', this.$store.state);
   },
   methods: {
     search: function() {
