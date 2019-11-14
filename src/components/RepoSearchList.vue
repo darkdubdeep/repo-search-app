@@ -6,54 +6,42 @@
       name="gh-username"
       placeholder="Search for a GitHub username..."
       v-model="username"
-      @keydown="search"
+      @keyup="search"
     />
     <h2 class="loading" v-if="loading">Searching</h2>
-    <ul v-if="results">
-      <li v-for="item in results" :key="item.id">
+    <ul v-if="!loading && repoData">
+      <li v-for="item in repoData" :key="item.id">
         <router-link :to="{ path: `repository/${item.name}` }">{{ item.name }}</router-link>
       </li>
     </ul>
+    <h4 v-if="error">{{error}}</h4>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 export default {
   name: "RepoSearchList",
-  props: {
-    msg: String
-  },
   data: () => ({
     username: "",
-    error: "",
-    loading: false,
     timeOut: null
   }),
   computed: {
-    results: function() {
-      return this.$store.state.repoData;
-    }
-  },
-  watch: {
-    username: function(val) {
-      this.error = "";
-    }
+    ...mapState(["loading", "repoData", "error"])
   },
   methods: {
     search: function() {
       if (this.username) {
-        console.log(this.username);
+        this.$store.commit("setLoading", true);
+        this.$store.commit("setError", null);
         if (this.timeOut) {
           clearTimeout(this.timeOut);
         }
         this.timeOut = setTimeout(() => {
-          console.log("typed");
           this.$store.dispatch("loadData", this.username);
           this.$store.commit("setUser", this.username);
         }, 500);
-      } else {
-        this.error = "";
       }
     }
   }

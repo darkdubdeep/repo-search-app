@@ -9,7 +9,9 @@ const store = new Vuex.Store({
   state: {
     username: '',
     repoData: [],
-    contributionsData: []
+    contributionsData: [],
+    loading: false,
+    error: null
   },
   mutations: {
     setUser(state, payload) {
@@ -20,27 +22,44 @@ const store = new Vuex.Store({
     },
     setContributionsData(state, payload) {
       state.contributionsData = payload;
-      console.log(state.contributionsData, 'store');
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
     }
   },
   actions: {
     loadData(context, payload) {
+      localStorage.setItem('gitHubUser', payload);
       return axios
         .get(`https://api.github.com/users/${payload}/repos`)
         .then(response => {
           context.commit('setRepoData', response.data);
         })
-        .catch(error => {});
+        .catch(error => {
+          context.commit('setError', error.response.data.message);
+        })
+        .finally(() => {
+          context.commit('setLoading', false);
+        });
     },
     loadContributions(context, payload) {
+      context.commit('setLoading', true);
+      const repoName = payload;
+      const user = context.state.username || localStorage.getItem('gitHubUser');
       return axios
-        .get(
-          `https://api.github.com/repos/${context.state.username}/${payload}/contributors`
-        )
+        .get(`https://api.github.com/repos/${user}/${repoName}/contributors`)
         .then(response => {
           context.commit('setContributionsData', response.data);
         })
-        .catch(error => {});
+        .catch(error => {
+          context.commit('setError', error.response.data.message);
+        })
+        .finally(() => {
+          context.commit('setLoading', false);
+        });
     }
   }
 });
