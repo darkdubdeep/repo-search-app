@@ -1,27 +1,31 @@
 <template>
   <div>
     {{ name }}
-    {{ newsletterPopup }}
+    {{ username }}
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "ContributionsGraph",
+  name: 'ContributionsGraph',
   props: {
     name: String,
     newsletterPopup: String,
     data: Array
   },
   data: () => ({
-    error: "",
+    error: '',
     loading: false
   }),
-  mounted() {
-    console.log(this.$route);
+  computed: {
+    username: function() {
+      console.log(this.$store.state.username);
+      return this.$store.state.username;
+    }
   },
+  mounted() {},
   methods: {
     search: function() {
       if (this.username) {
@@ -32,19 +36,19 @@ export default {
             console.log(response.data);
 
             this.results = response.data;
-            this.error = "";
+            this.error = '';
 
             this.loading = false;
           })
           .catch(error => {
-            this.results = "";
+            this.results = '';
             this.error = error;
 
             this.loading = false;
           });
       } else {
-        this.results = "";
-        this.error = "";
+        this.results = '';
+        this.error = '';
 
         this.loading = false;
       }
@@ -53,5 +57,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

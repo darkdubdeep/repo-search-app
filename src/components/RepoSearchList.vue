@@ -31,10 +31,14 @@ export default {
   },
   data: () => ({
     username: '',
-    results: '',
     error: '',
     loading: false
   }),
+  computed: {
+    results: function() {
+      return this.$store.state.repoData;
+    }
+  },
   watch: {
     username: function(val) {
       this.error = '';
@@ -45,28 +49,12 @@ export default {
   },
   methods: {
     search: function() {
-      console.log(this.$store);
       if (this.username) {
         this.loading = true;
-        axios
-          .get(`https://api.github.com/users/${this.username}/repos`)
-          .then(response => {
-            console.log(response.data);
-
-            this.results = response.data;
-            this.error = '';
-
-            this.loading = false;
-          })
-          .catch(error => {
-            this.results = '';
-            this.error = error;
-            this.loading = false;
-          });
+        this.$store.dispatch('loadData', this.username);
+        this.$store.commit('setUser', this.username);
       } else {
-        this.results = '';
         this.error = '';
-        this.loading = false;
       }
     }
   }

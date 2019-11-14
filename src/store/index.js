@@ -3,22 +3,30 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+import axios from 'axios';
+
 const store = new Vuex.Store({
   state: {
-    user: '',
+    username: '',
     repoData: []
   },
   mutations: {
     setUser(state, payload) {
-      state.user = payload;
+      state.username = payload;
     },
     setData(state, payload) {
       state.repoData = payload;
     }
   },
   actions: {
-    loadMeetups({ commit, getters }) {
-      commit('setLoading', true);
+    loadData(context, payload) {
+      return axios
+        .get(`https://api.github.com/users/${payload}/repos`)
+        .then(response => {
+          console.log(response.data);
+          context.commit('setData', response.data);
+        })
+        .catch(error => {});
     }
   }
 });
