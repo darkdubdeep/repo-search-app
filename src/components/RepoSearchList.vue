@@ -9,35 +9,43 @@
       @keydown.13="search"
       :class="{ 'has-error': error }"
     />
-    <span class="loading" v-if="loading">Searching GitHub for "{{ username }}"...</span>
+    <span class="loading" v-if="loading"
+      >Searching GitHub for "{{ username }}"...</span
+    >
     <ul v-if="results">
       <li v-for="item in results" :key="item.id">
-        <router-link :to="{ path: `repository/${item.name}`}">{{ item.name }}</router-link>
+        <router-link :to="{ path: `repository/${item.name}` }">{{
+          item.name
+        }}</router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
-  name: "RepoSearchList",
+  name: 'RepoSearchList',
   props: {
     msg: String
   },
   data: () => ({
-    username: "",
-    results: "",
-    error: "",
+    username: '',
+    results: '',
+    error: '',
     loading: false
   }),
   watch: {
     username: function(val) {
-      this.error = "";
+      this.error = '';
     }
+  },
+  mounted() {
+    console.log('store', this.$store.state);
   },
   methods: {
     search: function() {
+      console.log(this.$store);
       if (this.username) {
         this.loading = true;
         axios
@@ -46,20 +54,18 @@ export default {
             console.log(response.data);
 
             this.results = response.data;
-            this.error = "";
+            this.error = '';
 
             this.loading = false;
           })
           .catch(error => {
-            this.results = "";
+            this.results = '';
             this.error = error;
-
             this.loading = false;
           });
       } else {
-        this.results = "";
-        this.error = "";
-
+        this.results = '';
+        this.error = '';
         this.loading = false;
       }
     }
@@ -67,5 +73,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
