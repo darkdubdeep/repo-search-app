@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>REPO LIST</h1>
+    <h1>REPOSITORY LIST</h1>
     <input
       type="text"
       name="gh-username"
       placeholder="Search for a GitHub username..."
       v-model="username"
-      @keydown.13="search"
+      @keydown="search"
     />
     <h2 class="loading" v-if="loading">Searching</h2>
     <ul v-if="results">
@@ -44,7 +44,7 @@ export default {
   methods: {
     search: function() {
       if (this.username) {
-        this.loading = true;
+        console.log(this.username)
         this.$store.dispatch('loadData', this.username);
         this.$store.commit('setUser', this.username);
       } else {

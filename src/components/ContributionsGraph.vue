@@ -1,17 +1,15 @@
 <template>
   <div>
-    <ve-histogram
-      :data="countributionsData"
-      :settings="chartSettings"
-    ></ve-histogram>
+    <ve-histogram :data="countributionsData" :settings="chartSettings"></ve-histogram>
+    <button @click="goBack">Back</button>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { VeHistogram } from 'v-charts';
+import axios from "axios";
+import { VeHistogram } from "v-charts";
 export default {
-  name: 'ContributionsGraph',
+  name: "ContributionsGraph",
   components: {
     VeHistogram
   },
@@ -19,12 +17,12 @@ export default {
     name: String
   },
   data: () => ({
-    error: '',
+    error: "",
     loading: false,
-    columns: ['contributions'],
+    columns: ["contributions"],
     chartSettings: {
-      metrics: ['contributions'],
-      dimension: ['login']
+      metrics: ["contributions"],
+      dimension: ["login"]
     }
   }),
   computed: {
@@ -35,8 +33,13 @@ export default {
       };
     }
   },
+  methods: {
+    goBack: function() {
+      this.$router.go(-1);
+    }
+  },
   mounted() {
-    this.$store.dispatch('loadContributions', this.$route.params.name);
+    this.$store.dispatch("loadContributions", this.$route.params.name);
   }
 };
 </script>
