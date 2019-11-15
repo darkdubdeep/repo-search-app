@@ -86,5 +86,6 @@ export default {
   text-decoration: none;
   display: inline-block;
   padding: 8px 0 8px 3px;
+  width: 100%;
 }
 </style>
