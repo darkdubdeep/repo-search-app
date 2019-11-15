@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <LoadingIndicator />
     <ContributionsGraph />
     <button @click="goBack" class="btn--primary">Back</button>
+    <LoadingIndicator />
   </div>
 </template>
 
