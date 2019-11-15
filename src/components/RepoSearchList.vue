@@ -2,18 +2,24 @@
   <div>
     <h1>REPOSITORY LIST</h1>
     <h2 class="loading" v-if="loading">Searching</h2>
-    <input
-      type="text"
-      name="gh-username"
-      placeholder="Search for a GitHub username..."
-      v-model="username"
-      @keyup="search"
-    />
-    <ul v-if="!error && !loading">
-      <li v-for="item in repoData" :key="item.id">
-        <router-link :to="{ path: `repository/${item.name}` }">{{ item.name }}</router-link>
-      </li>
-    </ul>
+    <div class="input-search-container">
+      <input
+        type="text"
+        name="gh-username"
+        placeholder="Search for a GitHub repository by username"
+        v-model="username"
+        @keyup="search"
+        class="search-input"
+      />
+      <ul v-show="!error && !loading" class="dropdown-list">
+        <li v-for="item in repoData" :key="item.id" class="dropdown-list__item">
+          <router-link
+            :to="{ path: `repository/${item.name}` }"
+            class="dropdown-list__item__link"
+          >{{ item.name }}</router-link>
+        </li>
+      </ul>
+    </div>
     <h4 v-if="error">{{error}}</h4>
   </div>
 </template>
@@ -47,4 +53,44 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+h1 {
+  margin-top: 150px;
+  color: rgb(28, 53, 83);
+}
+
+.input-search-container {
+  width: 300px;
+  margin: 0 auto;
+}
+.search-input {
+  height: 30px;
+  width: 90%;
+  transition: 0.7s;
+  outline-color: #1895ff;
+  padding: 0 5px 0 5px;
+}
+
+.dropdown-list {
+  margin-top: 0;
+  text-align: left;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.dropdown-list__item {
+  width: 95%;
+  margin-left: 8px;
+  transition: 0.3s;
+  &:hover {
+    background: #a2d4ff;
+  }
+}
+
+.dropdown-list__item__link {
+  color: rgb(28, 53, 83);
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 0 8px 3px;
+}
+</style>
