@@ -2,7 +2,6 @@
   <div>
     <h3 v-if="loading">Loading</h3>
     <ve-histogram v-else :data="countributionsData" :settings="chartSettings"></ve-histogram>
-    <button @click="goBack">Back</button>
     <h4 v-if="error">{{error}}</h4>
   </div>
 </template>
@@ -33,11 +32,6 @@ export default {
         columns: this.columns,
         rows: this.contributionsData
       };
-    }
-  },
-  methods: {
-    goBack: function() {
-      this.$router.go(-1);
     }
   },
   mounted() {

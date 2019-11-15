@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h1>REPOSITORY LIST</h1>
     <RepoSearchList />
   </div>
 </template>
@@ -14,3 +15,12 @@ export default {
   }
 };
 </script>
+
+
+
+<style scoped lang="scss">
+h1 {
+  margin-top: 150px;
+  color: rgb(28, 53, 83);
+}
+</style>

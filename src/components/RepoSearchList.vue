@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>REPOSITORY LIST</h1>
     <h2 class="loading" v-if="loading">Searching</h2>
     <div class="input-search-container">
       <input
@@ -54,10 +53,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1 {
-  margin-top: 150px;
-  color: rgb(28, 53, 83);
-}
 
 .input-search-container {
   width: 300px;
