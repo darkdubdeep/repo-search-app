@@ -9,7 +9,10 @@
         @keyup="search"
         class="search-input"
       />
-      <ul v-show="!error && !loading" class="dropdown-list">
+      <ul
+        v-show="!error && !loading && username.length > 0"
+        class="dropdown-list"
+      >
         <li v-for="item in repoData" :key="item.id" class="dropdown-list__item">
           <router-link
             :to="{ path: `repository/${item.name}` }"
@@ -38,10 +41,10 @@ export default {
   },
   methods: {
     search: function(e) {
-      if (e.target.value) {
+      this.$store.commit('setUser', e.target.value);
+      if (e.target.value.length) {
         this.$store.commit('setLoading', true);
         this.$store.commit('setError', null);
-        this.$store.commit('setUser', e.target.value);
         if (this.timeOut) {
           clearTimeout(this.timeOut);
         }
