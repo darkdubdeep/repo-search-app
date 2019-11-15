@@ -9,7 +9,10 @@
         @keyup="search"
         class="search-input"
       />
-      <ul v-show="!error && !loading" class="dropdown-list">
+      <ul
+        v-show="!error && !loading && username.length > 0"
+        class="dropdown-list"
+      >
         <li v-for="item in repoData" :key="item.id" class="dropdown-list__item">
           <router-link
             :to="{ path: `repository/${item.name}` }"
@@ -20,6 +23,7 @@
       </ul>
     </div>
     <h4 v-if="error">{{ error }}</h4>
+    <h4 v-if="!error && !loading && repoData.length < 1">No repositories</h4>
   </div>
 </template>
 
