@@ -6,13 +6,13 @@
 
 <script>
 export default {
-  props: {
-    loading: Boolean
+  computed: {
+    loading: function() {
+      return this.$store.state.loading;
+    }
   }
 };
 </script>
-
-
 
 <style scoped lang="scss">
 .loading-indicator {

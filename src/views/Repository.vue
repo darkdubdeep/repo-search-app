@@ -1,17 +1,20 @@
 <template>
   <div class="home">
+    <LoadingIndicator />
     <ContributionsGraph />
     <button @click="goBack" class="btn--primary">Back</button>
   </div>
 </template>
 
 <script>
-import ContributionsGraph from "@/components/ContributionsGraph.vue";
+import ContributionsGraph from '@/components/ContributionsGraph.vue';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
 
 export default {
-  name: "Repository",
+  name: 'Repository',
   components: {
-    ContributionsGraph
+    ContributionsGraph,
+    LoadingIndicator
   },
   methods: {
     goBack: function() {
@@ -21,8 +24,6 @@ export default {
   mounted() {}
 };
 </script>
-
-    
 
 <style scoped lang="scss">
 .btn--primary {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <LoadingIndicator :loading="loading" />
     <div class="input-search-container">
       <input
         type="text"
@@ -15,40 +14,37 @@
           <router-link
             :to="{ path: `repository/${item.name}` }"
             class="dropdown-list__item__link"
-          >{{ item.name }}</router-link>
+            >{{ item.name }}</router-link
+          >
         </li>
       </ul>
     </div>
-    <h4 v-if="error">{{error}}</h4>
+    <h4 v-if="error">{{ error }}</h4>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import LoadingIndicator from "./LoadingIndicator";
+import { mapState } from 'vuex';
 export default {
-  components: {
-    LoadingIndicator
-  },
-  name: "RepoSearchList",
+  name: 'RepoSearchList',
   data: () => ({
-    username: "",
+    username: '',
     timeOut: null
   }),
   computed: {
-    ...mapState(["loading", "repoData", "error"])
+    ...mapState(['loading', 'repoData', 'error'])
   },
   methods: {
     search: function() {
       if (this.username) {
-        this.$store.commit("setLoading", true);
-        this.$store.commit("setError", null);
+        this.$store.commit('setLoading', true);
+        this.$store.commit('setError', null);
         if (this.timeOut) {
           clearTimeout(this.timeOut);
         }
         this.timeOut = setTimeout(() => {
-          this.$store.dispatch("loadData", this.username);
-          this.$store.commit("setUser", this.username);
+          this.$store.dispatch('loadData', this.username);
+          this.$store.commit('setUser', this.username);
         }, 500);
       }
     }
