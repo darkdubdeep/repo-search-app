@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="loading" v-if="loading">Searching</h2>
+    <LoadingIndicator :loading="loading" />
     <div class="input-search-container">
       <input
         type="text"
@@ -25,7 +25,11 @@
 
 <script>
 import { mapState } from "vuex";
+import LoadingIndicator from "./LoadingIndicator";
 export default {
+  components: {
+    LoadingIndicator
+  },
   name: "RepoSearchList",
   data: () => ({
     username: "",
@@ -53,7 +57,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .input-search-container {
   width: 300px;
   margin: 0 auto;

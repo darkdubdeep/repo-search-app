@@ -1,19 +1,22 @@
 <template>
   <div>
-    <h3 v-if="loading">Loading</h3>
-    <ve-histogram v-else :data="countributionsData" :settings="chartSettings"></ve-histogram>
+    <LoadingIndicator :loading="loading" />
+    <ve-histogram :data="countributionsData" :settings="chartSettings"></ve-histogram>
     <h4 v-if="error">{{error}}</h4>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import LoadingIndicator from "./LoadingIndicator";
+
 import { VeHistogram } from "v-charts";
 import { mapState } from "vuex";
 export default {
   name: "ContributionsGraph",
   components: {
-    VeHistogram
+    VeHistogram,
+    LoadingIndicator
   },
   props: {
     name: String
