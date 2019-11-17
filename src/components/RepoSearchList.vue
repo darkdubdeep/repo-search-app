@@ -20,6 +20,7 @@
           </li>
         </ul>
       </div>
+      <!--Will show if the user has no repositories-->
       <div v-else-if="!error && !loading && !repoData.length && username.length">
         <h4>No repositories</h4>
       </div>
