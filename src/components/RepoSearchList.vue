@@ -48,9 +48,9 @@ export default {
       let userName = e.target.value;
       this.$store.commit("setUser", userName);
       /**
-       * In this case, i chosed to use :value of userName from state insted of v-model
-       * in search input, because it  can be annoing to a user to type username
-       * every time when he back from repository detail page.
+       * In this case, i chosed to use :value of userName from state instead of v-model
+       * in search input, because it could be annoying to a user to type username
+       * every time when he goes back from repository detail page.
        */
       if (userName.length) {
         this.$store.commit("setLoading", true);
@@ -71,12 +71,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+/* Styles for desktop screens */
 .search {
+  display: flex;
+  flex-direction: column;
   width: 300px;
   margin: 0 auto;
   &-input {
     height: 30px;
-    width: 90%;
+    width: 300px;
+    box-sizing: border-box;
     transition: 0.7s;
     outline-color: #1895ff;
     padding: 0 5px 0 5px;
@@ -84,12 +88,15 @@ export default {
   &-list {
     background-color: #f5faff;
     margin-top: 0;
+    width: 300px;
     text-align: left;
     list-style-type: none;
+    margin-right: 0;
     padding-left: 0;
     &__item {
-      width: 95%;
-      margin-left: 8px;
+      width: 300px;
+      padding-left: 8px;
+      box-sizing: border-box;
       transition: 0.3s;
       &:hover {
         background: #a2d4ff;
@@ -103,5 +110,28 @@ export default {
       }
     }
   }
+}
+/* Styles for mobile screens */
+@media only screen and (max-width: 480px) {
+  .search {
+    width: 100%;
+    margin: 0 15px 15px 0;
+    &-input {
+      border: 1px solid #1895ff;
+      font-size: 16px;
+      height: 45px;
+      width: initial;
+    }
+    &-list {
+      &__item {
+        border-bottom: 1px solid #1895ff;
+        width: initial;
+        margin: 0px;
+      }
+    }
+  }
+}
+/* Styles for tablet screens */
+@media only screen and (max-width: 960px) {
 }
 </style>

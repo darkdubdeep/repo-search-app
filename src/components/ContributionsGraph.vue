@@ -43,7 +43,7 @@ export default {
     this.$store.commit("setError", null);
     this.$store.commit("setLoading", false);
     /**
-     *  if you want to clear user name on every back, please, uncomment the she state mutation bellov
+     *  if you want to clear user name on press the back button, please uncomment the state mutation bellov
      */
     //this.$store.commit('setUser', '');
   }
