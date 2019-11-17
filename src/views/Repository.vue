@@ -7,21 +7,20 @@
 </template>
 
 <script>
-import ContributionsGraph from '@/components/ContributionsGraph.vue';
-import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import ContributionsGraph from "@/components/ContributionsGraph.vue";
+import LoadingIndicator from "@/components/LoadingIndicator.vue";
 
 export default {
-  name: 'Repository',
+  name: "Repository",
   components: {
     ContributionsGraph,
     LoadingIndicator
   },
   methods: {
     goBack: function() {
-      this.$router.go(-1);
+      this.$router.push({ path: "/" });
     }
-  },
-  mounted() {}
+  }
 };
 </script>
 
