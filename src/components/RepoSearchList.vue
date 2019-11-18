@@ -123,6 +123,7 @@ export default {
       width: initial;
     }
     &-list {
+      width: 100%;
       &__item {
         border-bottom: 1px solid #1895ff;
         width: initial;
